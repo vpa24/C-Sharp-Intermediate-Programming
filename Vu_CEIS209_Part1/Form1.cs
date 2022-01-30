@@ -12,6 +12,13 @@ namespace Vu_CEIS209_Part1
 {
     public partial class mainForm : Form
     {
+        string[] titlesArray = new string[5];
+        string[] artistsArray = new string[5];
+        string[] genresArray = new string[5];
+        int[] yearArray = new int[5];
+        string[] urlArray = new string[5];
+
+        int songCount = 0;
         public mainForm()
         {
             InitializeComponent();
@@ -49,8 +56,24 @@ namespace Vu_CEIS209_Part1
             StringBuilder sb = new StringBuilder(string.Empty);
             string nl = "\r\n";
 
-            if(validInput())
+            if (songCount == titlesArray.Length)
+                MessageBox.Show("Song List is full!");
+
+            else if(validInput())
             {
+                // add title to song list
+                songList.Items.Add(titleText.Text);
+
+                
+                titlesArray[songCount] = titleText.Text;
+                artistsArray[songCount] = artistText.Text;
+                genresArray[songCount] = genreText.Text;
+                yearArray[songCount] = Int16.Parse(yearText.Text);
+                urlArray[songCount] = urlText.Text;
+
+                songCount++;
+
+                // Build the output text
                 sb.Append("Title: " + titleText.Text);
                 sb.Append(nl);
                 sb.Append("Artist: " + artistText.Text);
@@ -63,7 +86,6 @@ namespace Vu_CEIS209_Part1
                 sb.Append(nl);
 
                 outputText.Text = sb.ToString();
-                songList.Items.Add(titleText.Text);
                 
             }
         }
@@ -93,22 +115,83 @@ namespace Vu_CEIS209_Part1
 
             outputText.Text = sb.ToString();
         }
+        
+        private bool validTitle()
+        {
+            bool valid = true;
+            if (string.IsNullOrEmpty(titleText.Text))
+            {
+                MessageBox.Show("The song title cannot be blank");
+                valid = false;
+            }
+            return valid;
+        }
 
         private void findButton_Click(object sender, EventArgs e)
         {
-            if (songInList(titleText.Text))
+            int songIndex = 0;
+            StringBuilder sb = new StringBuilder(string.Empty);
+            string nl = "\r\n";
+
+            if (validTitle())
             {
-                MessageBox.Show("Song found");
-            }
-            else
-            {
-                MessageBox.Show("Song not found");
+                if (songInList(titleText.Text))
+                {
+                    songIndex = getSongIndex(titleText.Text);
+                    sb.Append(titleText.Text);
+                    sb.Append(nl);
+                    sb.Append(artistsArray[songIndex]);
+                    sb.Append(nl);
+                    sb.Append(genresArray[songIndex]);
+                    sb.Append(nl);
+                    sb.Append(yearArray[songIndex]);
+                    sb.Append(nl);
+                    sb.Append(urlArray[songIndex]);
+
+                    MessageBox.Show("Song found");
+                }
+                else
+                {
+                    MessageBox.Show("Song not found");
+                }
             }
         }
-
         private void clearButton_Click(object sender, EventArgs e)
         {
             titleText.Text = artistText.Text = genreText.Text = yearText.Text = urlText.Text = "";
+        }
+
+        private int getSongIndex(string songTitle)
+        {
+            return songList.Items.IndexOf(songTitle);
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            int songIndex = songList.SelectedIndex;
+            webBrowserDisplay.Navigate(new Uri(urlArray[songIndex]));
+        }
+
+        private void songList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder(string.Empty);
+            string nl = "\r\n";
+            int songIndex = -1;
+
+            songIndex = songList.SelectedIndex;
+
+            sb.Append(titlesArray[songIndex]);
+            sb.Append(nl);
+            sb.Append(artistsArray[songIndex]);
+            sb.Append(nl);
+            sb.Append(genresArray[songIndex]);
+            sb.Append(nl);
+            sb.Append(yearArray[songIndex]);
+            sb.Append(nl);
+            sb.Append(urlArray[songIndex]);
+            sb.Append(nl);
+
+            outputText.Text = sb.ToString();
         }
     }
 }

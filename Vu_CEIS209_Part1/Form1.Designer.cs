@@ -32,6 +32,7 @@
             System.Windows.Forms.Button allSongsButton;
             System.Windows.Forms.Button findButton;
             System.Windows.Forms.Button clearButton;
+            System.Windows.Forms.Button playButton;
             this.titleLabel = new System.Windows.Forms.Label();
             this.artistLabel = new System.Windows.Forms.Label();
             this.genreLabel = new System.Windows.Forms.Label();
@@ -46,10 +47,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.songList = new System.Windows.Forms.ListBox();
+            this.webBrowserDisplay = new System.Windows.Forms.WebBrowser();
             addButton = new System.Windows.Forms.Button();
             allSongsButton = new System.Windows.Forms.Button();
             findButton = new System.Windows.Forms.Button();
             clearButton = new System.Windows.Forms.Button();
+            playButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addButton
@@ -73,6 +76,39 @@
             allSongsButton.Text = "Show All Songs";
             allSongsButton.UseVisualStyleBackColor = false;
             allSongsButton.Click += new System.EventHandler(this.allSongsButton_Click);
+            // 
+            // findButton
+            // 
+            findButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            findButton.Location = new System.Drawing.Point(92, 409);
+            findButton.Name = "findButton";
+            findButton.Size = new System.Drawing.Size(230, 30);
+            findButton.TabIndex = 17;
+            findButton.Text = "Find Song";
+            findButton.UseVisualStyleBackColor = false;
+            findButton.Click += new System.EventHandler(this.findButton_Click);
+            // 
+            // clearButton
+            // 
+            clearButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            clearButton.Location = new System.Drawing.Point(92, 476);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new System.Drawing.Size(230, 30);
+            clearButton.TabIndex = 18;
+            clearButton.Text = "Clear";
+            clearButton.UseVisualStyleBackColor = false;
+            clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
+            // playButton
+            // 
+            playButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            playButton.Location = new System.Drawing.Point(1029, 618);
+            playButton.Name = "playButton";
+            playButton.Size = new System.Drawing.Size(230, 30);
+            playButton.TabIndex = 20;
+            playButton.Text = "Play";
+            playButton.UseVisualStyleBackColor = false;
+            playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // titleLabel
             // 
@@ -200,34 +236,23 @@
             this.songList.ScrollAlwaysVisible = true;
             this.songList.Size = new System.Drawing.Size(475, 268);
             this.songList.TabIndex = 16;
+            this.songList.SelectedIndexChanged += new System.EventHandler(this.songList_SelectedIndexChanged);
             // 
-            // findButton
+            // webBrowserDisplay
             // 
-            findButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            findButton.Location = new System.Drawing.Point(92, 409);
-            findButton.Name = "findButton";
-            findButton.Size = new System.Drawing.Size(230, 30);
-            findButton.TabIndex = 17;
-            findButton.Text = "Find Song";
-            findButton.UseVisualStyleBackColor = false;
-            findButton.Click += new System.EventHandler(this.findButton_Click);
-            // 
-            // clearButton
-            // 
-            clearButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            clearButton.Location = new System.Drawing.Point(92, 476);
-            clearButton.Name = "clearButton";
-            clearButton.Size = new System.Drawing.Size(230, 30);
-            clearButton.TabIndex = 18;
-            clearButton.Text = "Clear";
-            clearButton.UseVisualStyleBackColor = false;
-            clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            this.webBrowserDisplay.Location = new System.Drawing.Point(924, 76);
+            this.webBrowserDisplay.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserDisplay.Name = "webBrowserDisplay";
+            this.webBrowserDisplay.Size = new System.Drawing.Size(402, 505);
+            this.webBrowserDisplay.TabIndex = 19;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(921, 680);
+            this.ClientSize = new System.Drawing.Size(1342, 680);
+            this.Controls.Add(playButton);
+            this.Controls.Add(this.webBrowserDisplay);
             this.Controls.Add(clearButton);
             this.Controls.Add(findButton);
             this.Controls.Add(this.songList);
@@ -269,6 +294,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox songList;
+        private System.Windows.Forms.WebBrowser webBrowserDisplay;
     }
 }
 
